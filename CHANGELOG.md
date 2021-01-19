@@ -2,8 +2,14 @@
 ## [Unreleased]
 
 
-<a name="0.7.0"></a>
-## [0.7.0] - 2021-01-19
+<a name="0.8.0"></a>
+## [0.8.0] - 2021-01-19
+### Added
+- addfour fn
+
+
+<a name="v0.7.0"></a>
+## [v0.7.0] - 2021-01-19
 ### Deprecated
 - addThree fn
 
@@ -39,8 +45,9 @@
 - add readme
 
 
-[Unreleased]: https://github.com/Superformula/package_releases/compare/0.7.0...HEAD
-[0.7.0]: https://github.com/Superformula/package_releases/compare/v0.6.1...0.7.0
+[Unreleased]: https://github.com/Superformula/package_releases/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/Superformula/package_releases/compare/v0.7.0...0.8.0
+[v0.7.0]: https://github.com/Superformula/package_releases/compare/v0.6.1...v0.7.0
 [v0.6.1]: https://github.com/Superformula/package_releases/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/Superformula/package_releases/compare/v0.4.0...v0.6.0
 [v0.4.0]: https://github.com/Superformula/package_releases/compare/v0.3.0...v0.4.0
