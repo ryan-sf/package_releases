@@ -25,13 +25,16 @@ jobs:
             flutter pub global activate cider
             
         - id: version
-          name: Bump Version 
+          name: Bump version 
           run: |
             echo "Type of change: ${{github.event.inputs.change_type}}"
             flutter pub global run cider bump "${{github.event.inputs.change_type}}"
             VERSION=$(flutter pub global run cider version) 
             echo "Outputting new ${{github.event.inputs.change_type}} version: ${VERSION}"
             echo "::set-output name=version::${VERSION}"
+            
+        - name: Commit version
+          uses: stefanzweifel/git-auto-commit-action@v4 
           
         - name: Get tags
           run: |
