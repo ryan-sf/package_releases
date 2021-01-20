@@ -1,0 +1,47 @@
+
+name: Release Drafter
+on:
+  workflow_dispatch:
+    inputs:
+      change_type:
+        description: 'Version (major, minor)'
+        default: 'minor'
+        required: true
+jobs:
+  release:
+    name: Create release
+    runs-on: macos-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            ref: master
+            
+        - name: Install Flutter
+          uses: subosito/flutter-action@v1.4.0
+            
+        - id: version
+          name: Bump Version 
+          run: |
+            echo "Type of change: ${{github.event.inputs.change_type}}"
+            flutter pub global run cider bump "${{github.event.inputs.change_type}}"
+            VERSION=$(flutter pub global run cider version) 
+            echo "Outputting new ${{github.event.inputs.change_type}} version: ${VERSION}"
+            echo "::set-output name=version::${VERSION}"
+          
+        - name: Get tags
+          run: |
+            git fetch --all --tags 
+            git tag "v${{steps.version.outputs.version}}"
+            git push && git push --tags
+              
+        - name: Draft release
+          uses: release-drafter/release-drafter@v5
+          with:
+            name: v${{steps.version.outputs.version}}
+            config-name: release-drafter.yml
+            version: v${{steps.version.outputs.version}}
+            tag: v${{steps.version.outputs.version}}
+            publish: true
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
