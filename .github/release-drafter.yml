@@ -2,7 +2,7 @@ categories:
   - title: '🚀 Added'
     labels:
       - 'feature'
-      - 'enhancement'
+      - 'fix'
   - title: '🐛 Fixed'
     labels:
       - 'fix'
@@ -19,10 +19,7 @@ version-resolver:
   minor:
     labels:
       - 'minor'
-  patch:
-    labels:
-      - 'patch'
-  default: patch
+  default: minor
 template: |
   ## Changes
 
