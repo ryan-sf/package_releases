@@ -2,7 +2,7 @@ categories:
   - title: '🚀 Added'
     labels:
       - 'feature'
-      - 'fix'
+      - 'feat'
   - title: '🐛 Fixed'
     labels:
       - 'fix'
