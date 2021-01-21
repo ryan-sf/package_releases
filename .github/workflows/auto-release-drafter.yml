@@ -33,7 +33,7 @@ jobs:
             flutter pub global run cider bump minor
             VERSION=$(flutter pub global run cider version) 
             echo "Outputting new minor version: ${VERSION}"
-            echo "::set-output name=version::${VERSION}"
+            echo "version=${VERSION}" >> $GITHUB_ENV
             
         - name: Major version
           if: ${{env.breaking == 'true'}}
@@ -41,7 +41,7 @@ jobs:
             flutter pub global run cider bump major
             VERSION=$(flutter pub global run cider version) 
             echo "Outputting new major version: ${VERSION}"
-            echo "::set-output name=version::${VERSION}"
+            echo "version=${VERSION}" >> $GITHUB_ENV
             
         - name: Commit version
           uses: stefanzweifel/git-auto-commit-action@v4 
@@ -51,16 +51,16 @@ jobs:
         - name: Get tags
           run: |
             git fetch --all --tags 
-            git tag "v${{steps.version.outputs.version}}"
+            git tag "v${{env.version}}"
             git push && git push --tags
               
         - name: Draft release
           uses: release-drafter/release-drafter@v5
           with:
-            name: v${{steps.version.outputs.version}}
+            name: v${{env.version}}
             config-name: release-drafter.yml
-            version: v${{steps.version.outputs.version}}
-            tag: v${{steps.version.outputs.version}}
+            version: v${{env.version}}
+            tag: v${{env.version}}
             publish: true
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
