@@ -28,7 +28,7 @@ jobs:
             echo ${{env.breaking}}
             
         - name: Minor version
-          if: env.breaking == false
+          if: ${{env.breaking == false}}
           run: |
             flutter pub global run cider bump minor
             VERSION=$(flutter pub global run cider version) 
@@ -36,7 +36,7 @@ jobs:
             echo "::set-output name=version::${VERSION}"
             
         - name: Major version
-          if: env.breaking == true
+          if: ${{env.breaking == true}}
           run: |
             flutter pub global run cider bump major
             VERSION=$(flutter pub global run cider version) 
