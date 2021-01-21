@@ -45,6 +45,8 @@ jobs:
             
         - name: Commit version
           uses: stefanzweifel/git-auto-commit-action@v4 
+          with:
+            branch: master
           
         - name: Get tags
           run: |
