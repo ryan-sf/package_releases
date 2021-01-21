@@ -1,12 +1,17 @@
 name: Auto Release Drafter
 on:
-  push:
+  pull_request:
     branches:
       - master
+    types: [closed]
+    
 jobs:
   release:
     name: Create release
     runs-on: macos-latest
+    if: github.event.pull_request.merged == true
+    env:
+      breaking: contains(github.event.pull_request.labels.*.name, 'breaking')
     steps:
         - name: Checkout
           uses: actions/checkout@v2
@@ -19,7 +24,7 @@ jobs:
             flutter pub global activate cider
             
         - name: Minor version
-          if: !contains(github.event.pull_request.labels.*.name, 'breaking')
+          if: ${{!breaking}}
           run: |
             flutter pub global run cider bump minor
             VERSION=$(flutter pub global run cider version) 
@@ -27,7 +32,7 @@ jobs:
             echo "::set-output name=version::${VERSION}"
             
         - name: Major version
-          if: contains(github.event.pull_request.labels.*.name, 'breaking')
+          if: ${{breaking}}
           run: |
             flutter pub global run cider bump major
             VERSION=$(flutter pub global run cider version) 
