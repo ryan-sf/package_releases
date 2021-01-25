@@ -12,4 +12,7 @@ class Calculator {
 
   /// Returns [value] plus 4.
   int addFour(int value) => value + 4;
+
+  /// Returns [value] plus 5.
+  int addFive(int value) => value + 5;
 }
